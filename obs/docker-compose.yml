@@ -21,4 +21,3 @@ services:
       - 8000:8000
     environment:
       - PYTHONUNBUFFERED=1
-      - OBS_HOST=192.168.0.79

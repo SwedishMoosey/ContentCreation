@@ -1,8 +1,8 @@
 "use client"
 
-import effectClick from "@/utils/popupClick";
+import effectClick from "@/utils/effectClick";
 
-export default function Popup({ title, route }: { title: string, route: string}) {
+export default function Effect({ title, route }: { title: string, route: string}) {
     return(
         <div onClick={() => effectClick(route)} className="effect-button bg-yellow-500 text-white border-white">
             <p className="text-5xl font-bold pb-8">{ title }</p>
