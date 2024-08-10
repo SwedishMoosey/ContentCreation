@@ -16,12 +16,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/test")
+@app.get("/popup/bruh")
 def test():
     ws.connect()
     PopupWithSound(scene_source="Center Monitor Scene", image_source="testImage", audio_source="testAudio", duration=1)
     ws.disconnect()
-    return {"status": "Hello there"}
+    return {"status": "Success"}
 
 
 

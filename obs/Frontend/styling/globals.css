@@ -12,6 +12,16 @@ body {
   background: rgb(var(--background-rgb));
 }
 
+.effect-button {
+  @apply  flex flex-col items-center w-80 h-80 p-8 m-8 rounded-lg border-8 
+          transform transition-transform duration-300 hover:scale-105 active:scale-95;
+  box-shadow: 0 20px 50px 12px rgba(0, 0, 0, 0.85);
+}
+
+.effect-button:active {
+  box-shadow: 0 10px 30px 12px rgba(0, 0, 0, 0.9);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
