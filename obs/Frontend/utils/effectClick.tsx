@@ -1,7 +1,13 @@
-export default async function effectClick(route: string) {
+import effectPayload from "./effectInterface";
+
+export default async function effectClick(data: effectPayload) {
     try {
-        const response = await fetch("http://localhost:8000/effect/" + route, { 
-          method: 'GET',
+        const response = await fetch("http://localhost:8000/effect/", { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
         });
   
         if (!response.ok) {

@@ -1,5 +1,6 @@
 import time, os
-from fastapi import FastAPI # type: ignore
+from fastapi import FastAPI, Request # type: ignore
+from pydantic import BaseModel # type: ignore
 from obswebsocket import obsws, requests # type: ignore
 from fastapi.middleware.cors import CORSMiddleware # type: ignore
 from dotenv import load_dotenv # type: ignore
@@ -19,24 +20,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/effect/bruh")
-def effectBruh():
+class EffectRequest(BaseModel):
+    name: str
+    type: str
+
+@app.post("/effect")
+def effectBruh(request: EffectRequest):
     ws.connect()
-    EffectImageWithSound(scene_source="EffectBruh")
+
+    if(request.type == "image"):
+        EffectImageWithSound(scene_source="Effect" + request.name)
+    elif(request.type == "video"):
+        EffectVideo(scene_source="Effect" + request.name)
+
     ws.disconnect()
     return {"status": "Success"}
 
-@app.get("/effect/crying")
+@app.post("/effect/crying")
 def effectBruh():
     ws.connect()
     EffectVideo(scene_source="EffectCrying")
-    ws.disconnect()
-    return {"status": "Success"}
-
-@app.get("/effect/rage")
-def effectBruh():
-    ws.connect()
-    EffectVideo(scene_source="EffectRage")
     ws.disconnect()
     return {"status": "Success"}
 

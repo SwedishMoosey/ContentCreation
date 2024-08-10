@@ -2,3 +2,4 @@ fastapi
 uvicorn[standard]
 obs-websocket-py
 python-dotenv
+pydantic

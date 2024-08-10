@@ -1,10 +1,11 @@
 "use client"
 
 import effectClick from "@/utils/effectClick";
+import effectPayload from "@/utils/effectInterface";
 
-export default function Effect({ title, route }: { title: string, route: string}) {
+export default function Effect({ title, requestData }: { title: string, requestData: effectPayload}) {
     return(
-        <div onClick={() => effectClick(route)} className="effect-button bg-yellow-500 text-white border-white">
+        <div onClick={() => effectClick(requestData)} className="effect-button bg-yellow-500 text-white border-white">
             <p className="text-5xl font-bold pb-8">{ title }</p>
             
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-40">
