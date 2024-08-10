@@ -2,7 +2,7 @@ import time
 from obswebsocket import obsws, requests # type: ignore
 
 # Connection parameters
-HOST = "192.168.0.79"
+HOST = "localhost"
 PORT = 4455
 PASSWORD = "OFR1KitYP19bPpRG"
 
@@ -11,22 +11,18 @@ ws = obsws(HOST, PORT, PASSWORD)
 ws.connect()
 
 # Function to show a popup
-def show_popup(image_source="testImage", audio_source="testAudio", duration=5):
-    # Show the image
-    ws.call(requests.SetSceneItemProperties(item=image_source, visible=True))
-    # Start the audio
-    ws.call(requests.PlayPauseMedia(media_name=audio_source, play=True))
+def PopupWithSound(scene_source, image_source, audio_source=False, duration=5):
+    image_item_id = ws.call(requests.GetSceneItemId(sceneName = scene_source, sourceName = image_source)).getSceneItemId()
+
+    ws.call(requests.SetSceneItemEnabled(sceneName = scene_source, sceneItemId = image_item_id, sceneItemEnabled = True))
+    if(audio_source):
+        ws.call(requests.TriggerMediaInputAction(inputName = audio_source, mediaAction="OBS_WEBSOCKET_MEDIA_INPUT_ACTION_RESTART"))
     
-    # Wait for the duration
     time.sleep(duration)
     
-    # Hide the image
-    ws.call(requests.SetSceneItemProperties(item=image_source, visible=False))
-    # Stop the audio (optional, since it should stop on its own)
-    ws.call(requests.PlayPauseMedia(sourceName=audio_source, play=False))
+    ws.call(requests.SetSceneItemEnabled(sceneName = scene_source, sceneItemId = image_item_id, sceneItemEnabled = False))
 
-# Example usage
-show_popup(duration=5)
+PopupWithSound(scene_source="Center Monitor Scene", image_source="testImage", audio_source="testAudio", duration=1)
 
 # Disconnect when done
 ws.disconnect()
